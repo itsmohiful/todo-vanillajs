@@ -1,4 +1,4 @@
-//select element and assing them to variables
+//select element and assign them to variables
 let newTask = document.querySelector("#new-task");
 let form = document.querySelector("form");
 let todoUl = document.querySelector("#items");
@@ -18,6 +18,8 @@ let addTask = function(event){
 
 }
 
+
+//store created task in list
 let createTask = function(task){
     let listItem = document.createElement('li');
     let checkbox = document.createElement('input');
@@ -34,7 +36,7 @@ let createTask = function(task){
 }
 
 
-
+//complete task function
 let completeTask = function(){
     let listItem = this.parentNode;
     let deleteBtn = document.createElement('button');
@@ -50,6 +52,8 @@ let completeTask = function(){
     bindCompleteItems(listItem, deleteTask);
 }
 
+
+//delete task function
 let deleteTask = function(){
     let listItem = this.parentNode;
     let ul = listItem.parentNode;
@@ -57,15 +61,30 @@ let deleteTask = function(){
 }
 
 
+//listen checkbox click
 let bindInCompleteItem = function(taskItem, checkboxclick){
     let checkBox = taskItem.querySelector('input[type="checkbox"]');
     checkBox.onchange = checkboxclick;
 }
 
-
+//listen delete button click
 let bindCompleteItems = function(taskItem, deleteButtonClick){
     let deleteBtn = taskItem.querySelector('.delete');
     deleteBtn.onclick = deleteButtonClick;
 }
 
+
+//dynamic show task
+for(let i=0; i < todoUl.children.length; i++){
+    bindInCompleteItem(todoUl.children[i], completeTask);
+}
+
+//dynamic delete task
+for(let i=0; i < completeUl.children.length; i++){
+    bindCompleteItems(completeUl.children[i], deleteTask);
+    
+}
+
+
+//add listener in submiting task
 form.addEventListener('submit', addTask);
